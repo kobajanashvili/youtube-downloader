@@ -7,6 +7,18 @@
     <title>download video from youtube</title>
 </head>
 <body>
-    <h1>test</h1>
+    <div style="margin-top:15%; padding-left: 35%">
+        <h2>Download video from YouTube</h2>
+        <label for="text">Link fro youtube</label>
+        <input type="text" id="link" style="width:40%" placeholder="Link...">
+        <button onclick="download()">Download</button>
+    </div>
+
+
+
+    <script>
+        const link = document.getElementById('link').value;
+        console.log(link);     
+    </script>
 </body>
 </html>
