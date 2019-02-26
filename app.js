@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/aaa', (req, res) => res.download('./videos/text.txt'));
+app.get('/test', (req, res) => res.download('./videos/text.txt'));
 
 
 app.post('/download', async (req, res) => {
