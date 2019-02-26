@@ -13,7 +13,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'videos')));
 
-const port = process.env.PORT || 8080;
+app.get('/', (req, res) => {
+    res.sendfile(path.join(__dirname, 'index.html'));
+})
+
 
 app.post('/download', async (req, res) => {
     try {
@@ -30,5 +33,5 @@ app.post('/download', async (req, res) => {
 })
 
 
-
+const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
