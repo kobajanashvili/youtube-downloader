@@ -19,7 +19,17 @@
     <script>
         function download() {
             const link = document.getElementById('link').value;
-            console.log(link);   
+            fetch('http://localhost:3000/download', {
+                method: 'POST',
+                headers: {'Content-Type': 'Application/json'},
+                body: JSON.stringify({url: link})
+            }) 
+                .then((response) => {
+                    return response.json()
+                })
+                .then((response) => {
+                    window.location = 'http://localhost:3000/' + response.video
+                })
         }
     </script>
 </body>
