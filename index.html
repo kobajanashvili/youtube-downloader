@@ -24,12 +24,6 @@
                 headers: {'Content-Type': 'Application/json'},
                 body: JSON.stringify({url: link})
             }) 
-                .then((response) => {
-                    return response.json()
-                })
-                .then((response) => {
-                    console.log(response.video);
-                })
         }
     </script>
 </body>

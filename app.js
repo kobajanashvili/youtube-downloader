@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 const {promisify} = require('util');
+const url = require('url');
 
 const getInfoVideo = promisify(ytdl.getInfo);
 
@@ -15,10 +16,12 @@ app.use(express.static(path.join(__dirname, 'videos')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
-})
+});
 
-app.get('/test', (req, res) => res.download('./videos/text.txt'));
-
+app.get('/ttt', (req, res) => {
+    const title = req.query.title;
+    res.download(path.join(__dirname, './videos', title));
+});
 
 app.post('/download', async (req, res) => {
     try {
@@ -27,11 +30,17 @@ app.post('/download', async (req, res) => {
 
         ytdl(req.body.url)
             .pipe(fs.createWriteStream(`videos/${info.title}.mp4`))
-            .on('finish', () => res.download(`videos/${info.title}.mp4`));
+            .on('finish', () => res.redirect(url.format({
+                pathname:"/ttt",
+                    query: {
+                       "title": `${info.title}.mp4`
+                    }
+            })))
+            // .on('finish', () => res.download(path.join(__dirname, './videos', `${info.title}.mp4`)));
     } catch (err) {
         res.status(500).json(err);
     }
-})
+});
 
 
 const port = process.env.PORT || 3000;
