@@ -24,6 +24,9 @@
                 headers: {'Content-Type': 'Application/json'},
                 body: JSON.stringify({url: link})
             }) 
+                .then((response) => {
+                    return console.log(response.title);
+                })
         }
     </script>
 </body>
