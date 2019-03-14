@@ -2,11 +2,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const ytdl = require('ytdl-core');
-const {promisify} = require('util');
-const url = require('url');
 
 const downloadRoutes = require('./routes/download');
+const mainRoutes     = require('./routes/main');
 
 // const getInfoVideo = promisify(ytdl.getInfo);
 
@@ -17,6 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'videos')));
 
 app.use('/api', downloadRoutes);
+app.use(mainRoutes);
 
 
 

@@ -1,6 +1,5 @@
 const express = require('express');
 
-const rootDir = require('../util/path');
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 const {promisify} = require('util');
@@ -14,13 +13,14 @@ router.post('/download', async (req, res) => {
     try {
         // https://www.youtube.com/watch?v=SNLJ4S-ltYM
         const info = await getInfoVideo(req.body.url.replace('http://www.youtube.com/watch?v=', ''));
+        console.log(req.body.url);
 
         ytdl(req.body.url)
-            .pipe(fs.createWriteStream(path.json(__dirname, `videos/${info.title}.mp4`)))
+            .pipe(fs.createWriteStream(`../videos/${info.title}.mp4`))
             .on('finish', () => {
-                res.download(path.join(__dirname, './videos', `${info.title}.mp4`));
+                res.status(203).download(path.join(__dirname, 'videos', `${info.title}.mp4`));
+                console.log('done! download');
             })
-
 
             // .on('finish', () => res.redirect(url.format({
             //     pathname:"/ttt",
