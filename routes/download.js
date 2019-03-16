@@ -16,9 +16,6 @@ router.post('/download', async (req, res) => {
 
         ytdl(req.body.url)
             .pipe(fs.createWriteStream(`./videos/${info.title}.mp4`))
-            // .on('finish', () => {
-            //     res.redirect('http://google.ru', 200);
-            // })
             .on('finish', () => {
                 res.status(203).download(`./videos/${info.title}.mp4`);
                 console.log('done! download');
